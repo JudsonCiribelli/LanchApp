@@ -20,6 +20,7 @@ model User {
   updatedAt DateTime? @default(now())
 
   addresses Address[]
+  purchases Order[]   @relation("UserPurchases")
 
   @@map("users")
 }
@@ -39,4 +40,66 @@ model Address {
   user   User   @relation(fields: [userId], references: [id])
 
   @@map("addresses")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  cretedAt  DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  categoryId  String
+  name        String
+  price       String
+  description String
+  banner      String
+  cretedAt    DateTime? @default(now())
+  updatedAt   DateTime? @default(now())
+
+  items    Item[]
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("products")
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  buyerId   String
+  table     Int
+  status    OrderStatus @default(PENDING)
+  draft     Boolean     @default(true)
+  cretedAt  DateTime?   @default(now())
+  updatedAt DateTime?   @default(now())
+  items     Item[]
+  buyer     User        @relation("UserPurchases", fields: [buyerId], references: [id])
+
+  @@map("orders")
+}
+
+model Item {
+  id        String    @id @default(uuid())
+  orderId   String
+  productId String
+  amount    Int
+  cretedAt  DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+  order     Order     @relation(fields: [orderId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+
+  @@map("items")
+}
+
+enum OrderStatus {
+  PENDING
+  PAYMENT_CONFIRMED
+  PAYMENT_FAILED
+  FINISHED
+  CANCELED
 }
