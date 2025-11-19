@@ -19,8 +19,9 @@ model User {
   cretedAt  DateTime? @default(now())
   updatedAt DateTime? @default(now())
 
+  orders    Order[]   @relation("UserOrders")
   addresses Address[]
-  purchases Order[]   @relation("UserPurchases")
+
 
   @@map("users")
 }
@@ -35,9 +36,9 @@ model Address {
   state        String
   zipCode      String
 
-
+  orders Order[]
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id])
 
   @@map("addresses")
 }
@@ -71,14 +72,18 @@ model Product {
 
 model Order {
   id        String      @id @default(uuid())
-  buyerId   String
   table     Int
   status    OrderStatus @default(PENDING)
   draft     Boolean     @default(true)
+  name      String?
   cretedAt  DateTime?   @default(now())
   updatedAt DateTime?   @default(now())
   items     Item[]
-  buyer     User        @relation("UserPurchases", fields: [buyerId], references: [id])
+
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id])
+  userId    String?
+  user      User?    @relation("UserOrders", fields: [userId], references: [id])
 
   @@map("orders")
 }
@@ -86,6 +91,7 @@ model Order {
 model Item {
   id        String    @id @default(uuid())
   orderId   String
+  unitPrice String
   productId String
   amount    Int
   cretedAt  DateTime? @default(now())
