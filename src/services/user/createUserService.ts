@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import prismaClient from "../../lib/client.ts";
 
 interface createUserProps {
@@ -9,6 +10,8 @@ interface createUserProps {
 
 class CreateUserService {
   async execute({ name, email, password, phone }: createUserProps) {
+    const passwordHash = await hash(password, 8);
+
     const userPhone = await prismaClient.user.findUnique({
       where: {
         phone: phone,
@@ -34,7 +37,11 @@ class CreateUserService {
         name,
         email,
         phone,
-        password,
+        password: passwordHash,
+      },
+      select: {
+        name: true,
+        email: true,
       },
     });
 
