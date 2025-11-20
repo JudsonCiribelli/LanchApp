@@ -3,8 +3,9 @@ import { CreateUserController } from "./controllers/user/createUserController.ts
 import { LoginUserController } from "./controllers/user/LoginUserController.ts";
 import { IsAuthenticated } from "./middleware/user/IsAutheticated.ts";
 import { GetUserController } from "./controllers/user/getUserController.ts";
-import { CreateAddressesController } from "./controllers/addresses/createAddressesController.ts";
-import { GetAddressesController } from "./controllers/addresses/getAddressesController.ts";
+import { CreateAddressesController } from "./controllers/address/createAddressController.ts";
+import { GetAddressController } from "./controllers/address/getAddressController.ts";
+import { DeleteAdressController } from "./controllers/address/deleteAddressController.ts";
 
 const router = Router();
 
@@ -13,14 +14,15 @@ router.post("/user", new CreateUserController().handle);
 router.post("/session", new LoginUserController().handle);
 router.get("/user", IsAuthenticated, new GetUserController().handle);
 router.post(
-  "/user/addresses",
+  "/user/address",
   IsAuthenticated,
   new CreateAddressesController().handle
 );
-router.get(
-  "/user/addresses",
+router.get("/user/address", IsAuthenticated, new GetAddressController().handle);
+router.delete(
+  "/user/address",
   IsAuthenticated,
-  new GetAddressesController().handle
+  new DeleteAdressController().handle
 );
 
 export { router };
