@@ -4,6 +4,7 @@ import { LoginUserController } from "./controllers/user/LoginUserController.ts";
 import { IsAuthenticated } from "./middleware/user/IsAutheticated.ts";
 import { GetUserController } from "./controllers/user/getUserController.ts";
 import { CreateAddressesController } from "./controllers/addresses/createAddressesController.ts";
+import { GetAddressesController } from "./controllers/addresses/getAddressesController.ts";
 
 const router = Router();
 
@@ -15,6 +16,11 @@ router.post(
   "/user/addresses",
   IsAuthenticated,
   new CreateAddressesController().handle
+);
+router.get(
+  "/user/addresses",
+  IsAuthenticated,
+  new GetAddressesController().handle
 );
 
 export { router };
