@@ -4,7 +4,7 @@ interface GetAddressesProps {
   userId: string;
 }
 
-class GetAddressesService {
+class GetAddressService {
   async execute({ userId }: GetAddressesProps) {
     const userAddress = await prismaClient.user.findUnique({
       where: {
@@ -19,4 +19,4 @@ class GetAddressesService {
   }
 }
 
-export { GetAddressesService };
+export { GetAddressService };

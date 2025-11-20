@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
-import { GetAddressesService } from "../../services/address/getAddressService.ts";
+import { GetAddressService } from "../../services/address/getAddressService.ts";
 
-class GetAddressesController {
+class GetAddressController {
   async handle(req: Request, res: Response) {
     const userId = req.userId;
 
     try {
-      const getAddressesService = new GetAddressesService();
+      const getAddressService = new GetAddressService();
 
-      const userAddresses = await getAddressesService.execute({ userId });
+      const userAddresses = await getAddressService.execute({ userId });
 
       return res.status(200).send({ userAddresses });
     } catch (error) {
@@ -18,4 +18,4 @@ class GetAddressesController {
   }
 }
 
-export { GetAddressesController };
+export { GetAddressController };
