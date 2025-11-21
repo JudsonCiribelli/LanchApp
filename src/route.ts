@@ -6,6 +6,7 @@ import { GetUserController } from "./controllers/user/getUserController.ts";
 import { CreateAddressesController } from "./controllers/address/createAddressController.ts";
 import { GetAddressController } from "./controllers/address/getAddressController.ts";
 import { DeleteAdressController } from "./controllers/address/deleteAddressController.ts";
+import { CreateCategoryController } from "./controllers/category/createCategoryController.ts";
 
 const router = Router();
 
@@ -23,6 +24,12 @@ router.delete(
   "/user/address",
   IsAuthenticated,
   new DeleteAdressController().handle
+);
+//Category
+router.post(
+  "/category",
+  IsAuthenticated,
+  new CreateCategoryController().handle
 );
 
 export { router };
