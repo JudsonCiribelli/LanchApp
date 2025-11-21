@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "./config/multer.ts";
 import { CreateUserController } from "./controllers/user/createUserController.ts";
 import { LoginUserController } from "./controllers/user/LoginUserController.ts";
 import { IsAuthenticated } from "./middleware/user/IsAutheticated.ts";
@@ -7,8 +9,10 @@ import { CreateAddressesController } from "./controllers/address/createAddressCo
 import { GetAddressController } from "./controllers/address/getAddressController.ts";
 import { DeleteAdressController } from "./controllers/address/deleteAddressController.ts";
 import { CreateCategoryController } from "./controllers/category/createCategoryController.ts";
+import { CreateProductController } from "./controllers/product/createProductController.ts";
 
 const router = Router();
+const upload = multer(uploadConfig.upload("./tmp"));
 
 //User
 router.post("/user", new CreateUserController().handle);
@@ -31,5 +35,11 @@ router.post(
   IsAuthenticated,
   new CreateCategoryController().handle
 );
-
+//Product
+router.post(
+  "/product",
+  IsAuthenticated,
+  upload.single("file"),
+  new CreateProductController().handle
+);
 export { router };
