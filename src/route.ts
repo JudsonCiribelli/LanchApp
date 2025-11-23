@@ -12,6 +12,7 @@ import { CreateCategoryController } from "./controllers/category/createCategoryC
 import { CreateProductController } from "./controllers/product/createProductController.ts";
 import { GetProductController } from "./controllers/product/getProductController.ts";
 import { GetProductByIdController } from "./controllers/product/getProductByIdController.ts";
+import { CreateOrderController } from "./controllers/order/createOrderController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
@@ -46,5 +47,7 @@ router.post(
 );
 router.get("/product", new GetProductController().handle);
 router.get("/category/product", new GetProductByIdController().handle);
+//Order
+router.post("/order", IsAuthenticated, new CreateOrderController().handle);
 
 export { router };
