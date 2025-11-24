@@ -15,6 +15,7 @@ import { GetProductByIdController } from "./controllers/product/getProductByIdCo
 import { CreateOrderController } from "./controllers/order/createOrderController.ts";
 import { RemoveOrderController } from "./controllers/order/removeOrderController.ts";
 import { GetUserOrdersController } from "./controllers/user/getUserOrdersController.ts";
+import { AddItemController } from "./controllers/order/addItemController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
@@ -57,5 +58,6 @@ router.get("/category/product", new GetProductByIdController().handle);
 //Order
 router.post("/order", IsAuthenticated, new CreateOrderController().handle);
 router.delete("/order", IsAuthenticated, new RemoveOrderController().handle);
+router.post("/product/add", IsAuthenticated, new AddItemController().handle);
 
 export { router };
