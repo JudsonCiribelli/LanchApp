@@ -18,6 +18,8 @@ import { GetUserOrdersController } from "./controllers/user/getUserOrdersControl
 import { AddItemController } from "./controllers/order/addItemController.ts";
 import { GetItemsByOrderIdController } from "./controllers/order/getItemByOrderIdController.ts";
 import { RemoveItemController } from "./controllers/order/removeItemController.ts";
+import { SendOrderController } from "./controllers/order/sendOrderController.ts";
+import { GetOrderController } from "./controllers/order/getOrderController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
@@ -42,12 +44,14 @@ router.delete(
   IsAuthenticated,
   new DeleteAdressController().handle
 );
+
 //Category
 router.post(
   "/category",
   IsAuthenticated,
   new CreateCategoryController().handle
 );
+
 //Product
 router.post(
   "/product",
@@ -58,9 +62,11 @@ router.post(
 router.get("/product", new GetProductController().handle);
 router.get("/category/product", new GetProductByIdController().handle);
 router.post("/product/add", IsAuthenticated, new AddItemController().handle);
+
 //Order
 router.post("/order", IsAuthenticated, new CreateOrderController().handle);
 router.delete("/order", IsAuthenticated, new RemoveOrderController().handle);
+
 //Items
 router.get(
   "/order/items",
@@ -72,4 +78,7 @@ router.delete(
   IsAuthenticated,
   new RemoveItemController().handle
 );
+router.put("/order/send", IsAuthenticated, new SendOrderController().handle);
+// router.get("/order", IsAuthenticated, new GetOrderController().handle);
+
 export { router };
