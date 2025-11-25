@@ -79,6 +79,6 @@ router.delete(
   new RemoveItemController().handle
 );
 router.put("/order/send", IsAuthenticated, new SendOrderController().handle);
-// router.get("/order", IsAuthenticated, new GetOrderController().handle);
+router.get("/orders", IsAuthenticated, new GetOrderController().handle);
 
 export { router };
