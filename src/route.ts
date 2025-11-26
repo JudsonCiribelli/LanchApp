@@ -20,6 +20,7 @@ import { GetItemsByOrderIdController } from "./controllers/order/getItemByOrderI
 import { RemoveItemController } from "./controllers/order/removeItemController.ts";
 import { SendOrderController } from "./controllers/order/sendOrderController.ts";
 import { GetOrderController } from "./controllers/order/getOrderController.ts";
+import { UpdateOrderStatusController } from "./controllers/order/updateOrderStatusController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
@@ -79,6 +80,11 @@ router.delete(
   new RemoveItemController().handle
 );
 router.put("/order/send", IsAuthenticated, new SendOrderController().handle);
-router.get("/orders", IsAuthenticated, new GetOrderController().handle);
+router.get("/orders/status", IsAuthenticated, new GetOrderController().handle);
+router.put(
+  "/order/update",
+  IsAuthenticated,
+  new UpdateOrderStatusController().handle
+);
 
 export { router };
