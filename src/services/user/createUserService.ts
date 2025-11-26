@@ -42,6 +42,7 @@ class CreateUserService {
       select: {
         name: true,
         email: true,
+        phone: true,
       },
     });
 
