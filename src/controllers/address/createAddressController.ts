@@ -4,9 +4,11 @@ import z from "zod";
 
 class CreateAddressesController {
   async handle(req: Request, res: Response) {
+    const userId = req.userId;
+
     const createAddressSchema = z.object({
       street: z.string().nonempty({ message: "Street field is required!" }),
-      number: z.number(),
+      number: z.string(),
       complement: z
         .string()
         .nonempty({ message: "Complement field is required!" }),
@@ -23,12 +25,10 @@ class CreateAddressesController {
         }),
     });
 
-    const { street, number, complement, neighborhood, city, state, zipCode } =
-      createAddressSchema.parse(req.body);
-
-    const userId = req.userId;
-
     try {
+      const { street, number, complement, neighborhood, city, state, zipCode } =
+        createAddressSchema.parse(req.body);
+
       const createAddressesService = new CreateAddressesService();
 
       const addresses = await createAddressesService.execute({

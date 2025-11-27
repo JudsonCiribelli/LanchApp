@@ -3,7 +3,7 @@ import prismaClient from "../../lib/client.ts";
 interface CreateAddressesProps {
   userId: string;
   street: string;
-  number: number;
+  number: string;
   complement: string;
   neighborhood: string;
   city: string;
@@ -22,13 +22,11 @@ class CreateAddressesService {
     state,
     zipCode,
   }: CreateAddressesProps) {
-    const newNumber = String(number);
-
-    const addresses = await prismaClient.address.create({
+    const address = await prismaClient.address.create({
       data: {
         userId,
         street,
-        number: newNumber,
+        number,
         complement,
         neighborhood,
         city,
@@ -37,7 +35,7 @@ class CreateAddressesService {
       },
     });
 
-    return { addresses };
+    return { address };
   }
 }
 
