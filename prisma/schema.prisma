@@ -35,7 +35,7 @@ model Address {
   neighborhood String
   city         String
   state        String
-  zipCode      Int
+  zipCode      String
 
   orders Order[]
   userId String
