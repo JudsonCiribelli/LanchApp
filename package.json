@@ -4,7 +4,9 @@
   "main": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "node  --watch --experimental-strip-types src/server.ts"
+    "dev": "node  --watch --experimental-strip-types src/server.ts",
+    "test": "dotenv -e .env.test vitest run",
+    "pretest": "dotenv -e .env.test drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",

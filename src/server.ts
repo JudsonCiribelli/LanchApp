@@ -10,3 +10,5 @@ server.use(router);
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+export { server };
