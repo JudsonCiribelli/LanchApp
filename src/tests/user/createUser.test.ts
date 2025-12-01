@@ -57,7 +57,7 @@ describe("/user, Create User Controller", () => {
     );
   });
 
-  it("Should NOT create a user with invalid phone format ", async () => {
+  it("Should NOT create a user with invalid phone format", async () => {
     const response = await supertest(server).post("/user").send({
       name: faker.person.fullName(),
       email: faker.internet.email(),
@@ -94,6 +94,31 @@ describe("/user, Create User Controller", () => {
     expect(response.status).toBe(400);
     expect(response.body).toEqual({
       error: "This email is already register",
+    });
+  });
+
+  it("Should NOT create a user with duplicate phone number", async () => {
+    const email1 = faker.internet.email();
+    const email2 = faker.internet.email();
+    const phone1 = generateValidPhone();
+
+    await supertest(server).post("/user").send({
+      name: "User One",
+      email: email1,
+      password: "password123",
+      phone: phone1,
+    });
+
+    const response = await supertest(server).post("/user").send({
+      name: "User Two",
+      email: email2,
+      password: "password123",
+      phone: phone1,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      error: "This phone is already register",
     });
   });
 });

@@ -14,10 +14,10 @@ class CreateUserController {
         .string()
         .transform((val) => val.replace(/\D/g, ""))
         .refine((val) => val.length === 11, {
-          message: "O telefone deve ter 11 dígitos (DDD + 9xxxx-xxxx)",
+          message: "The phone number must have 11 digits (DDD + 9xxxx-xxxx).",
         })
         .refine((val) => /^[1-9]{2}9[0-9]{8}$/.test(val), {
-          message: "Número de celular inválido.",
+          message: "Invalid phone number.",
         }),
     });
 
