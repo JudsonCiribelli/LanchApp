@@ -21,9 +21,9 @@ class CreateUserController {
         }),
     });
 
-    const { name, email, password, phone } = createUserSchema.parse(req.body);
-
     try {
+      const { name, email, password, phone } = createUserSchema.parse(req.body);
+
       const createUserService = new CreateUserService();
 
       const user = await createUserService.execute({
@@ -35,13 +35,18 @@ class CreateUserController {
 
       return res.status(201).send({ user });
     } catch (error) {
+      console.log(error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           error: "Validation error",
           issues: error.format(),
         });
       }
-      return res.status(400).send(error);
+
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
