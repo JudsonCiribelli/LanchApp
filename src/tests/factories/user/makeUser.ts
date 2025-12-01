@@ -15,5 +15,5 @@ export const makeUser = async () => {
     },
   });
 
-  return user;
+  return { user, passwordHash };
 };
