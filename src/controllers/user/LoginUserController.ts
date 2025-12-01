@@ -11,15 +11,16 @@ class LoginUserController {
         .min(8, { message: "The password must be at least 8 characters long" }),
     });
 
-    const { email, password } = loginUserSchema.parse(req.body);
-
     try {
+      const { email, password } = loginUserSchema.parse(req.body);
+
       const loginUserService = new LoginUserService();
 
       const login = await loginUserService.execute({ email, password });
 
       return res.status(200).send({ login });
     } catch (error) {
+      console.log(error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           error: "Validation error",
@@ -27,7 +28,10 @@ class LoginUserController {
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
