@@ -1,17 +1,18 @@
 import { hash } from "bcryptjs";
-import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import prismaClient from "../../../lib/client.ts";
 
-export const makeUser = async (role?: "ADMIN" | "CLIENT") => {
-  const passwordHash = randomUUID().slice(0, 8);
+export const makeUser = async (role: "ADMIN" | "CLIENT" = "CLIENT") => {
+  const plainPassword = faker.internet.password({ length: 8 });
+  const passwordHash = await hash(plainPassword, 8);
 
   const user = await prismaClient.user.create({
     data: {
       name: faker.person.fullName(),
       email: faker.internet.email(),
-      password: await hash(passwordHash, 9),
+      password: passwordHash,
       phone: faker.phone.number(),
+      role: role,
     },
   });
 
