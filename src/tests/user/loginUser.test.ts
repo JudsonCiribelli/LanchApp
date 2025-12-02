@@ -15,10 +15,13 @@ describe("/session", () => {
   it("should login user session", async () => {
     const user = await makeUser();
 
-    const response = await supertest(server).post("/session").send({
-      email: user.user.email,
-      password: user.passwordHash,
-    });
+    const response = await supertest(server)
+      .post("/session")
+      .set("Content-Type", "application/json")
+      .send({
+        email: user.user.email,
+        password: user.passwordHash,
+      });
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
@@ -50,7 +53,7 @@ describe("/session", () => {
       password: "anyPassword123",
     });
 
-    expect(response.status).toBe(400); // Ou 401
+    expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("error");
   });
 
