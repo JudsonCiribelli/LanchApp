@@ -6,6 +6,14 @@ interface GetUserOdersProps {
 
 class GetUserOrdersService {
   async execute({ userId }: GetUserOdersProps) {
+    const userExist = await prismaClient.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!userExist) {
+      throw new Error("User not found");
+    }
+
     const user = await prismaClient.user.findUnique({
       where: {
         id: userId,
