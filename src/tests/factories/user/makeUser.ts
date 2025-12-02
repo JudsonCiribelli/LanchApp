@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { faker } from "@faker-js/faker";
 import prismaClient from "../../../lib/client.ts";
 
-export const makeUser = async () => {
+export const makeUser = async (role?: "ADMIN" | "CLIENT") => {
   const passwordHash = randomUUID().slice(0, 8);
 
   const user = await prismaClient.user.create({

@@ -13,7 +13,7 @@ describe("/user/orders", () => {
   });
 
   it("should return user orders", async () => {
-    const { token } = await makeAuthenticatedUser();
+    const { token } = await makeAuthenticatedUser("CLIENT");
 
     const response = await supertest(server)
       .get("/user/orders")

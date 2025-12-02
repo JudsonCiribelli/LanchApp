@@ -13,7 +13,7 @@ describe("GET /user", () => {
   });
 
   it("should return user data", async () => {
-    const { token } = await makeAuthenticatedUser();
+    const { token } = await makeAuthenticatedUser("CLIENT");
 
     const response = await supertest(server)
       .get("/user")
@@ -49,7 +49,7 @@ describe("GET /user", () => {
   });
 
   it("should return 400 if user is not found (Business Error)", async () => {
-    const { token, user } = await makeAuthenticatedUser();
+    const { token, user } = await makeAuthenticatedUser("CLIENT");
 
     await prismaClient.user.delete({
       where: { id: user.id },
