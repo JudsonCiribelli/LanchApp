@@ -41,7 +41,7 @@ class CreateCategoryService {
       throw new Error("This category is already exist");
     }
 
-    return { category };
+    return category;
   }
 }
 export { CreateCategoryService };

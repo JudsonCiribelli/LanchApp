@@ -10,11 +10,11 @@ class CreateCategoryController {
         .nonempty({ message: "The name of category is required" }),
     });
 
-    const { categoryName } = createCategorySchema.parse(req.body);
-
     const userId = req.userId;
 
     try {
+      const { categoryName } = createCategorySchema.parse(req.body);
+
       const createCategoryService = new CreateCategoryService();
 
       const category = await createCategoryService.execute({
@@ -24,15 +24,17 @@ class CreateCategoryController {
 
       return res.status(201).send({ category });
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof z.ZodError) {
         return res.status(400).json({
-          error: error.message,
+          error: "Validation error",
+          issues: error.format(),
         });
       }
 
-      return res.status(500).json({
-        error: "Internal server error",
-      });
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
