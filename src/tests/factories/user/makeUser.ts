@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import prismaClient from "../../../lib/client.ts";
 
 export const makeUser = async (role: "ADMIN" | "CLIENT" = "CLIENT") => {
-  const plainPassword = faker.internet.password({ length: 8 });
+  const plainPassword = faker.internet.password({ length: 9 });
   const passwordHash = await hash(plainPassword, 8);
 
   const user = await prismaClient.user.create({
@@ -16,5 +16,5 @@ export const makeUser = async (role: "ADMIN" | "CLIENT" = "CLIENT") => {
     },
   });
 
-  return { user, passwordHash };
+  return { user, plainPassword };
 };

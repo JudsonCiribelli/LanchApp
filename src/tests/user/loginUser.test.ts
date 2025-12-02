@@ -13,14 +13,14 @@ describe("/session", () => {
   });
 
   it("should login user session", async () => {
-    const user = await makeUser();
+    const { user, plainPassword } = await makeUser();
 
     const response = await supertest(server)
       .post("/session")
       .set("Content-Type", "application/json")
       .send({
-        email: user.user.email,
-        password: user.passwordHash,
+        email: user.email,
+        password: plainPassword,
       });
 
     expect(response.status).toBe(200);
