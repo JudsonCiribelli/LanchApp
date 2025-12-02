@@ -10,7 +10,7 @@ export const makeUser = async () => {
     data: {
       name: faker.person.fullName(),
       email: faker.internet.email(),
-      password: await hash(passwordHash, 8),
+      password: await hash(passwordHash, 9),
       phone: faker.phone.number(),
     },
   });
