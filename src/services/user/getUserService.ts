@@ -6,6 +6,10 @@ interface GetUserProps {
 
 class GetUserService {
   async execute({ userId }: GetUserProps) {
+    if (!userId) {
+      throw new Error("User id is required!");
+    }
+
     const user = await prismaClient.user.findUnique({
       where: {
         id: userId,
@@ -13,12 +17,16 @@ class GetUserService {
       select: {
         name: true,
         email: true,
-        cretedAt: true,
+        createdAt: true,
         updatedAt: true,
       },
     });
 
-    return { user };
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
   }
 }
 export { GetUserService };
