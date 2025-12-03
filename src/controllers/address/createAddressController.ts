@@ -21,7 +21,7 @@ class CreateAddressesController {
         .string()
         .transform((val) => val.replace(/\D/g, ""))
         .refine((val) => val.length === 8, {
-          message: "CEP inválido. Deve conter 8 dígitos.",
+          message: "ZIP CODE INVALID. It must contain 8 digits",
         }),
     });
 
@@ -31,7 +31,7 @@ class CreateAddressesController {
 
       const createAddressesService = new CreateAddressesService();
 
-      const addresses = await createAddressesService.execute({
+      const address = await createAddressesService.execute({
         userId,
         street,
         number,
@@ -42,15 +42,20 @@ class CreateAddressesController {
         zipCode,
       });
 
-      return res.status(201).send({ addresses });
+      return res.status(201).send({ address });
     } catch (error) {
+      console.log(error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           error: "Validation error",
           issues: error.format(),
         });
       }
-      return res.status(400).send(error);
+
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
