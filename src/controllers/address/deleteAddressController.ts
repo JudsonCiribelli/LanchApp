@@ -10,9 +10,9 @@ class DeleteAdressController {
 
     const userId = req.userId;
 
-    const { addressId } = deleteAdressSchema.parse(req.body);
-
     try {
+      const { addressId } = deleteAdressSchema.parse(req.body);
+
       const deleteAdressService = new DeleteAdressService();
 
       const addressToDelete = await deleteAdressService.execute({
@@ -22,6 +22,7 @@ class DeleteAdressController {
 
       return res.status(200).send({ addressToDelete });
     } catch (error) {
+      console.log(error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({
           error: "Validation error",
@@ -29,7 +30,10 @@ class DeleteAdressController {
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
