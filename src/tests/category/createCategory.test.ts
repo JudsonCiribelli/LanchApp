@@ -10,7 +10,6 @@ describe("/category", () => {
 
   afterAll(async () => {
     await prismaClient.category.deleteMany();
-    await prismaClient.user.deleteMany();
     await prismaClient.$disconnect();
   });
 
