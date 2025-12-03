@@ -14,7 +14,6 @@ describe("/user, Create User Controller", () => {
   beforeAll(async () => {});
 
   afterAll(async () => {
-    await prismaClient.user.deleteMany();
     await prismaClient.$disconnect();
   });
 
@@ -26,7 +25,6 @@ describe("/user, Create User Controller", () => {
       phone: generateValidPhone(),
     });
 
-    console.log(response.body);
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("user");
     expect(response.body.user).toEqual({
