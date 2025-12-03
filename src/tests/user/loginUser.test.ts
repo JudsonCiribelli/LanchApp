@@ -8,7 +8,6 @@ describe("/session", () => {
   beforeAll(async () => {});
 
   afterAll(async () => {
-    await prismaClient.user.deleteMany();
     await prismaClient.$disconnect();
   });
 
