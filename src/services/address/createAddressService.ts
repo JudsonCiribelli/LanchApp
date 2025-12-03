@@ -35,7 +35,7 @@ class CreateAddressesService {
       },
     });
 
-    return { address };
+    return address;
   }
 }
 
