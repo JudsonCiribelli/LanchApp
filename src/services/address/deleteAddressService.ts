@@ -16,8 +16,15 @@ class DeleteAdressService {
       },
     });
 
-    if (user?.id !== userId) {
-      throw new Error("You cannot delete this address!");
+    const address = await prismaClient.address.findFirst({
+      where: {
+        id: addressId,
+        userId: userId,
+      },
+    });
+
+    if (!address) {
+      throw new Error("Address not found or you do not have permission.");
     }
 
     if (!user?.addresses) {
@@ -30,9 +37,7 @@ class DeleteAdressService {
       },
     });
 
-    console.log("Deleted Address:", deletedAddress);
-
-    return { deletedAddress };
+    return deletedAddress;
   }
 }
 
