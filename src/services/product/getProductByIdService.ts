@@ -12,7 +12,7 @@ class GetProductByIdService {
       },
     });
 
-    return { findByCategoryId };
+    return findByCategoryId;
   }
 }
 
