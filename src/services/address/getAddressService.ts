@@ -15,6 +15,10 @@ class GetAddressService {
       },
     });
 
+    if (!userAddress) {
+      throw new Error("User not found");
+    }
+
     return userAddress?.addresses;
   }
 }
