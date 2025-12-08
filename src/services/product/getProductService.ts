@@ -4,7 +4,7 @@ class GetProductService {
   async execute() {
     const products = await prismaClient.product.findMany({});
 
-    return { products };
+    return products;
   }
 }
 export { GetProductService };

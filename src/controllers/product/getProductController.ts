@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import { GetProductService } from "../../services/product/getProductService.ts";
-import z from "zod";
 
 class GetProductController {
   async handle(req: Request, res: Response) {
@@ -11,14 +10,10 @@ class GetProductController {
 
       return res.status(200).send({ products });
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({
-          error: "Validation error",
-          issues: error.format(),
-        });
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
       }
-
-      return res.status(400).send(error);
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
