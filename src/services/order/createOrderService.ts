@@ -5,7 +5,7 @@ interface createOrderProps {
   table: number;
   name: string;
   userId: string;
-  addressId?: string;
+  addressId?: string | undefined;
   type: OrderType;
 }
 
@@ -62,7 +62,7 @@ class CreateOrderService {
       },
     });
 
-    return { order };
+    return order;
   }
 }
 
