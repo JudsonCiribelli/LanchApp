@@ -8,9 +8,9 @@ class CreateOrderController {
     const userId = req.userId;
 
     const createOrderSchema = z.object({
-      table: z.number().min(1),
+      table: z.number().min(1).optional(),
       name: z.string().nonempty({ message: "Your name is required!" }),
-      addressId: z.uuid(),
+      addressId: z.string().optional(),
       type: z
         .enum(OrderType)
         .refine((val) => Object.values(OrderType).includes(val), {
@@ -27,7 +27,7 @@ class CreateOrderController {
       const createOrderService = new CreateOrderService();
 
       const order = await createOrderService.execute({
-        table,
+        table: table || 0,
         name,
         userId,
         addressId,
@@ -43,7 +43,10 @@ class CreateOrderController {
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
