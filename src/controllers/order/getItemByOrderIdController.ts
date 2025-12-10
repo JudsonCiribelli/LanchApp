@@ -4,16 +4,23 @@ import z from "zod";
 
 class GetItemsByOrderIdController {
   async handle(req: Request, res: Response) {
+    const userId = req.userId;
+    const orderId = req.query.orderId as string;
+
     const getItemsByOrderIdSchema = z.object({
       orderId: z.uuid().nonempty({ message: "Order id is required!" }),
     });
 
     try {
-      const { orderId } = getItemsByOrderIdSchema.parse(req.body);
+      getItemsByOrderIdSchema.parse({ orderId });
+
+      if (!orderId) {
+        return res.status(400).json({ error: "Order id is required!" });
+      }
 
       const getItems = new GetItemsByOrderIdService();
 
-      const items = await getItems.execute({ orderId });
+      const items = await getItems.execute({ orderId, userId });
 
       return res.status(200).send({ items });
     } catch (error) {
@@ -24,7 +31,11 @@ class GetItemsByOrderIdController {
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
