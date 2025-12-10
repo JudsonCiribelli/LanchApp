@@ -2,7 +2,7 @@ import prismaClient from "../../lib/client.ts";
 
 class GetOrderService {
   async execute() {
-    const order = await prismaClient.order.findMany({
+    const result = await prismaClient.order.findMany({
       where: {
         status: "PENDING",
       },
@@ -11,7 +11,7 @@ class GetOrderService {
       },
     });
 
-    return { order };
+    return result;
   }
 }
 

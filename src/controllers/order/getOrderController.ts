@@ -1,24 +1,20 @@
 import type { Request, Response } from "express";
 import { GetOrderService } from "../../services/order/getOrderService.ts";
-import z from "zod";
 
 class GetOrderController {
   async handle(req: Request, res: Response) {
     try {
       const getOrderService = new GetOrderService();
 
-      const order = await getOrderService.execute();
+      const result = await getOrderService.execute();
 
-      return res.status(200).send({ order });
+      return res.status(200).send({ result });
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({
-          error: "Validation error",
-          issues: error.format(),
-        });
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
       }
 
-      return res.status(400).send(error);
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
