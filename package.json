@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "prisma": "^3.9.2",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.1.13"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "@types/express": "^5.0.5",
     "@types/jest": "^30.0.0",
     "@types/supertest": "^6.0.3",
+    "@types/swagger-ui-express": "^4.1.8",
     "@vitest/coverage-v8": "^4.0.14",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",

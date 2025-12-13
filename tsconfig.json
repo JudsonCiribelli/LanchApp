@@ -3,6 +3,7 @@
   "display": "Node 22",
   "_version": "22.0.0",
   "compilerOptions": {
+    "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "module": "nodenext",
