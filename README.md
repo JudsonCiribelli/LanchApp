@@ -5,114 +5,63 @@
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-729B1B?style=for-the-badge&logo=vitest&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3068B7?style=for-the-badge&logo=zod&logoColor=white)
 
-> Backend completo para gestão de pedidos de uma lanchonete/pizzaria, controlando desde o cadastro de usuários e produtos até o fluxo de entrega e acompanhamento de status em tempo real.
+> Backend completo para gestão de pedidos de uma lanchonete/pizzaria, focado em segurança, testes automatizados e arquitetura escalável.
 
 ---
 
 ## 💻 Sobre o Projeto
 
-Este projeto foi desenvolvido com o objetivo de simular um cenário real de **Food Delivery**. A aplicação permite que clientes façam pedidos (escolhendo entre Delivery ou Retirada), acompanhem o status e gerenciem seus endereços. Para o estabelecimento, o sistema oferece controle de cardápio, gestão de categorias e uma fila de pedidos para a cozinha.
+Este projeto simula um cenário real de **Food Delivery**. A aplicação permite que clientes façam pedidos (Delivery, Retirada ou Mesa), acompanhem o status em tempo real e gerenciem seus endereços. Para o estabelecimento, o sistema oferece controle total do cardápio e um fluxo de pedidos otimizado para a cozinha.
 
-O foco principal foi aplicar os princípios de **Clean Code**, arquitetura em camadas e modelagem de dados relacional robusta.
+O foco principal foi aplicar **Clean Code**, arquitetura em camadas, testes de integração e validações rigorosas de segurança.
 
 ---
 
 ## ⚙️ Funcionalidades
 
-### 🔐 Autenticação e Segurança
+### 🔐 Autenticação e Segurança Avançada
 
-- [x] Cadastro de usuários com criptografia de senha (Bcrypt).
-- [x] Login e Autenticação via Token JWT.
-- [x] Middlewares para proteção de rotas (apenas usuários logados acessam recursos críticos).
-- [x] Recuperação de perfil do usuário logado.
+- [x] Cadastro e Login com **JWT** e Bcrypt.
+- [x] **Proteção contra IDOR:** Usuários só podem manipular seus próprios dados (pedidos, endereços).
+- [x] **Integridade Financeira:** O preço do item é buscado no banco (evita manipulação via front-end).
+- [x] Validação rigorosa de dados de entrada com **Zod**.
 
 ### 📦 Gestão de Produtos (Cardápio)
 
-- [x] Cadastro de Categorias.
-- [x] Cadastro de Produtos com upload de imagem (Banner).
-- [x] Listagem de produtos filtrados por categoria.
+- [x] Cadastro de Categorias e Produtos.
+- [x] Upload de imagens (Banner) com Multer.
+- [x] Listagem otimizada por categorias.
 
-### 📍 Endereços
+### 🛒 Pedidos (Core)
 
-- [x] Cadastro de múltiplos endereços por usuário.
-- [x] Validação de endereços para pedidos do tipo Delivery.
+- [x] Criação de pedidos complexos (múltiplos itens).
+- [x] Sistema de **Rascunho (Draft)**: O pedido começa como um carrinho e só é enviado após confirmação.
+- [x] Regras de negócio para **Delivery** (exige endereço) e **Dine-in** (exige mesa).
+- [x] Validação de estoque e disponibilidade.
 
-### 🛒 Pedidos (O Coração da Aplicação)
+### 🍳 Painel Administrativo / Cozinha
 
-- [x] Criação de pedidos com itens múltiplos.
-- [x] Suporte a diferentes tipos de pedido: **Delivery**, **Retirada (Pickup)** e **Mesa (Dine-in)**.
-- [x] Validação de regras de negócio (ex: Delivery exige endereço, Mesa exige número da mesa).
-- [x] Histórico de pedidos do usuário.
-- [x] Detalhes completos de um pedido específico.
-
-### 🍳 Painel da Cozinha / Admin
-
-- [x] Listagem de todos os pedidos em aberto.
-- [x] Fluxo de atualização de status: `PENDING` -> `IN_PREPARATION` -> `READY` -> `ON_THE_WAY` -> `FINISHED`.
+- [x] Controle de status: `PENDING` -> `IN_PREPARATION` -> `READY` -> `ON_THE_WAY` -> `FINISHED`.
+- [x] Apenas usuários com permissão ADMIN podem alterar status de pedidos.
 
 ---
 
 ## 🛠 Tecnologias Utilizadas
 
-O projeto foi desenvolvido utilizando as seguintes tecnologias:
-
-- **[Node.js](https://nodejs.org/en/)** - Runtime JavaScript.
-- **[Express](https://expressjs.com/)** - Framework para construção da API.
-- **[TypeScript](https://www.typescriptlang.org/)** - Superset JS para tipagem estática e código mais seguro.
-- **[Prisma ORM](https://www.prisma.io/)** - ORM moderno para interação com o banco de dados.
-- **[PostgreSQL](https://www.postgresql.org/)** - Banco de dados relacional.
-- **[Multer](https://github.com/expressjs/multer)** - Para upload de arquivos (imagens dos produtos).
-- **[JWT](https://jwt.io/)** - Para autenticação segura.
-- **[Cors](https://www.npmjs.com/package/cors)** - Para permitir requisições externas.
+- **[Node.js](https://nodejs.org/en/)** & **[Express](https://expressjs.com/)**
+- **[TypeScript](https://www.typescriptlang.org/)** - Tipagem estática.
+- **[Prisma ORM](https://www.prisma.io/)** - Modelagem de dados e Migrations.
+- **[PostgreSQL](https://www.postgresql.org/)** - Banco de dados.
+- **[Vitest](https://vitest.dev/)** - Testes de Integração e E2E.
+- **[Zod](https://zod.dev/)** - Validação de Schemas.
+- **[Swagger UI](https://swagger.io/)** - Documentação interativa.
+- **[Multer](https://github.com/expressjs/multer)** - Upload de arquivos.
 
 ---
 
-## 🗄️ Modelagem de Dados
+## 📚 Documentação da API (Swagger)
 
-O banco de dados foi estruturado para garantir a integridade das informações, especialmente no histórico de preços dos pedidos.
-
-_Principais Relacionamentos:_
-
-- **User** 1:N **Orders**
-- **User** 1:N **Addresses**
-- **Category** 1:N **Products**
-- **Order** N:N **Products** (através da tabela pivô **Items**)
-
-> _Destaque:_ A tabela de Itens armazena o preço histórico do produto no momento da compra, evitando inconsistências financeiras caso o preço do produto mude futuramente.
-
----
-
-## 🚀 Como Rodar o Projeto
-
-### Pré-requisitos
-
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
-Além disso é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
-
-### 🎲 Rodando a API (Servidor)
-
-```bash
-# Clone este repositório
-$ git clone [https://github.com/](https://github.com/)[SEU_USUARIO]/[NOME_DO_REPO].git
-
-# Acesse a pasta do projeto no terminal/cmd
-$ cd [NOME_DO_REPO]
-
-# Instale as dependências
-$ npm install
-
-# Configure as variáveis de ambiente
-# Crie um arquivo .env na raiz do projeto e preencha conforme o .env.example
-# Exemplo: DATABASE_URL="postgresql://user:password@localhost:5432/pizzaria?schema=public"
-# Exemplo: JWT_SECRET="sua_chave_secreta"
-
-# Execute as Migrations do Prisma para criar as tabelas
-$ npx prisma migrate dev
-
-# Execute a aplicação em modo de desenvolvimento
-$ npm run dev
-
-# O servidor iniciará na porta:3333 - acesse <http://localhost:3333>
-```
+A API possui documentação interativa completa. Após rodar o projeto, acesse:
