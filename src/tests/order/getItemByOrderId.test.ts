@@ -12,7 +12,6 @@ describe("GET/order/items", () => {
     await prismaClient.order.deleteMany();
     await prismaClient.product.deleteMany();
     await prismaClient.category.deleteMany();
-    await prismaClient.user.deleteMany();
     await prismaClient.$disconnect();
   });
 

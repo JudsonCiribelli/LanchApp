@@ -9,7 +9,6 @@ describe("GET/orders/status", () => {
   afterAll(async () => {
     await prismaClient.order.deleteMany();
     await prismaClient.address.deleteMany();
-    await prismaClient.user.deleteMany();
     await prismaClient.$disconnect();
   });
 
