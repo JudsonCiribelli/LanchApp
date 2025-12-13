@@ -8,7 +8,7 @@ class SendOrderController {
     });
 
     try {
-      const { orderId } = sendOrderSchema.parse(req.body);
+      const { orderId } = sendOrderSchema.parse(req.query);
 
       const sendOrderService = new SendOrderService();
 
@@ -16,14 +16,10 @@ class SendOrderController {
 
       return res.status(200).send({ order });
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({
-          error: "Validation error",
-          issues: error.format(),
-        });
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
       }
-
-      return res.status(400).send(error);
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
