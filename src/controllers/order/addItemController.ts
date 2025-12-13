@@ -4,6 +4,7 @@ import z from "zod";
 
 class AddItemController {
   async handle(req: Request, res: Response) {
+    const userId = req.userId;
     const addItemSchema = z.object({
       orderId: z.uuid().nonempty({ message: "Order Id is required!" }),
       productId: z.uuid().nonempty({ message: "Product Id is required!" }),
@@ -23,18 +24,23 @@ class AddItemController {
         productId,
         unitPrice,
         amount,
+        userId,
       });
 
       return res.status(201).send({ item });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({
-          error: "Validation error",
-          issues: error.format(),
+          error: "Validation error", // Essa é a string que o teste original esperava
+          issues: error.issues, // Array detalhado
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
