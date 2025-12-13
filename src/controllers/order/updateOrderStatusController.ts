@@ -5,6 +5,7 @@ import { OrderStatus } from "@prisma/client";
 
 class UpdateOrderStatusController {
   async handle(req: Request, res: Response) {
+    const userId = req.userId;
     const updateOrderStatusSchema = z.object({
       orderId: z.uuid().nonempty({ message: "Order Id is required!" }),
       status: z
@@ -23,6 +24,7 @@ class UpdateOrderStatusController {
       const orderStatus = await updateOrderStatusService.execute({
         orderId,
         status,
+        userId,
       });
 
       return res.status(200).send({ orderStatus });
@@ -34,7 +36,11 @@ class UpdateOrderStatusController {
         });
       }
 
-      return res.status(400).send(error);
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 }
