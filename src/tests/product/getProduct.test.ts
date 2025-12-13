@@ -22,7 +22,7 @@ describe("/PRODUCT", () => {
 
     await prismaClient.product.create({
       data: {
-        name: "Suco de Laranja",
+        name: faker.lorem.lines(1),
         price: "8.00",
         description: "Natural",
         banner: "suco.png",
@@ -32,7 +32,7 @@ describe("/PRODUCT", () => {
 
     await prismaClient.product.create({
       data: {
-        name: "Água Mineral",
+        name: faker.lorem.lines(1),
         price: "3.00",
         description: "Sem gás",
         banner: "agua.png",
