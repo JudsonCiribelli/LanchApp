@@ -16,9 +16,9 @@ class LoginUserController {
 
       const loginUserService = new LoginUserService();
 
-      const login = await loginUserService.execute({ email, password });
+      const user = await loginUserService.execute({ email, password });
 
-      return res.status(200).send({ login });
+      return res.status(200).send(user);
     } catch (error) {
       console.log(error);
       if (error instanceof z.ZodError) {
