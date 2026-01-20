@@ -31,10 +31,16 @@ class LoginUserService {
       {
         subject: user.id,
         expiresIn: "30d",
-      }
+      },
     );
 
-    return { token: token };
+    return {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      token: token,
+      role: user.role,
+    };
   }
 }
 
