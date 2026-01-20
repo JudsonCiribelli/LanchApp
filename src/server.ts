@@ -5,7 +5,7 @@ import swaggerDocument from './swagger.json' with { type: "json" };
 
 const server = express();
 
-const port = 3000;
+const port = 3030;
 
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 server.use(express.json());
