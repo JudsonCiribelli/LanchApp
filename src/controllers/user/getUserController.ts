@@ -10,10 +10,8 @@ class GetUserController {
 
       const user = await getUserService.execute({ userId });
 
-      return res.status(200).send({ user });
+      return res.status(200).send(user);
     } catch (error) {
-      console.log(error);
-
       if (error instanceof Error) {
         return res.status(400).json({ error: error.message });
       }
