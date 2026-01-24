@@ -15,6 +15,7 @@ class GetUserService {
         id: userId,
       },
       select: {
+        id: true,
         name: true,
         email: true,
         phone: true,

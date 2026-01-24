@@ -32,25 +32,25 @@ router.get("/user", IsAuthenticated, new GetUserController().handle);
 router.post(
   "/user/address",
   IsAuthenticated,
-  new CreateAddressesController().handle
+  new CreateAddressesController().handle,
 );
 router.get(
   "/user/orders",
   IsAuthenticated,
-  new GetUserOrdersController().handle
+  new GetUserOrdersController().handle,
 );
 router.get("/user/address", IsAuthenticated, new GetAddressController().handle);
 router.delete(
   "/user/address",
   IsAuthenticated,
-  new DeleteAdressController().handle
+  new DeleteAdressController().handle,
 );
 
 //Category
 router.post(
   "/category",
   IsAuthenticated,
-  new CreateCategoryController().handle
+  new CreateCategoryController().handle,
 );
 
 //Product
@@ -58,7 +58,7 @@ router.post(
   "/product",
   IsAuthenticated,
   upload.single("file"),
-  new CreateProductController().handle
+  new CreateProductController().handle,
 );
 router.get("/product", new GetProductController().handle);
 router.get("/category/product", new GetProductByIdController().handle);
@@ -72,19 +72,19 @@ router.delete("/order", IsAuthenticated, new RemoveOrderController().handle);
 router.get(
   "/order/items",
   IsAuthenticated,
-  new GetItemsByOrderIdController().handle
+  new GetItemsByOrderIdController().handle,
 );
 router.delete(
   "/order/items",
   IsAuthenticated,
-  new RemoveItemController().handle
+  new RemoveItemController().handle,
 );
 router.put("/order/send", IsAuthenticated, new SendOrderController().handle);
 router.get("/orders/status", IsAuthenticated, new GetOrderController().handle);
 router.put(
   "/order/update",
   IsAuthenticated,
-  new UpdateOrderStatusController().handle
+  new UpdateOrderStatusController().handle,
 );
 
 export { router };
