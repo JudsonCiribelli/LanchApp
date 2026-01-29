@@ -42,7 +42,7 @@ class CreateAddressesController {
         zipCode,
       });
 
-      return res.status(201).send({ address });
+      return res.status(201).send(address);
     } catch (error) {
       console.log(error);
       if (error instanceof z.ZodError) {
