@@ -22,6 +22,7 @@ import { SendOrderController } from "./controllers/order/sendOrderController.ts"
 import { GetOrderController } from "./controllers/order/getOrderController.ts";
 import { UpdateOrderStatusController } from "./controllers/order/updateOrderStatusController.ts";
 import { GetCategoryController } from "./controllers/category/getCategoryController.ts";
+import { DeleteProductController } from "./controllers/product/deleteProductController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig);
@@ -61,6 +62,11 @@ router.post(
   IsAuthenticated,
   upload.single("file"),
   new CreateProductController().handle,
+);
+router.delete(
+  "/product",
+  IsAuthenticated,
+  new DeleteProductController().handle,
 );
 router.get("/product", new GetProductController().handle);
 router.get("/category/product", new GetProductByIdController().handle);
