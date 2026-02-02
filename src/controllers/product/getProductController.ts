@@ -8,7 +8,7 @@ class GetProductController {
 
       const products = await getProductService.execute();
 
-      return res.status(200).send({ products });
+      return res.status(200).send(products);
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).json({ error: error.message });
