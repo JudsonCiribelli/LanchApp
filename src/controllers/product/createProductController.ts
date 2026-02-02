@@ -22,14 +22,14 @@ class CreateProductController {
       if (!req.file) {
         throw new Error("Error upload file");
       } else {
-        const { filename } = req.file;
         const product = await createProductService.execute({
           userId,
           name,
           categoryId,
           price,
           description,
-          banner: filename,
+          banner: req.file.originalname,
+          imageBuffer: req.file.buffer,
         });
 
         return res.status(201).send({ product });
