@@ -1,18 +1,19 @@
-import crypto from "crypto";
 import multer from "multer";
-import { resolve } from "path";
 
+// Usar o memoryStorage pra manter o arquivo em memoria e enviar diretamente para o cloudinary...
 export default {
-  upload(folder: string) {
-    return {
-      storage: multer.diskStorage({
-        destination: resolve(import.meta.dirname, "..", "..", folder),
-        filename: (request, file, callback) => {
-          const fileHash = crypto.randomBytes(16).toString("hex");
-          const fileName = `${fileHash}-${file.originalname}`;
-          return callback(null, fileName);
-        },
-      }),
-    };
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 4 * 1024 * 1024, // 4mb
+  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
+    const allowedMimes = ["image/jpeg", "image/jpg", "image/png"];
+
+    if (allowedMimes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Formato de arquivo invalido, use apenas JPG, JPEG, PNG."));
+    }
   },
 };

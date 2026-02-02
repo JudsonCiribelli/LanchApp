@@ -24,7 +24,7 @@ import { UpdateOrderStatusController } from "./controllers/order/updateOrderStat
 import { GetCategoryController } from "./controllers/category/getCategoryController.ts";
 
 const router = Router();
-const upload = multer(uploadConfig.upload("./tmp"));
+const upload = multer(uploadConfig);
 
 //User
 router.post("/user", new CreateUserController().handle);
