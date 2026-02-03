@@ -10,6 +10,24 @@ class GetProductByIdService {
       where: {
         categoryId: categoryId,
       },
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        description: true,
+        banner: true,
+        categoryId: true,
+        createdAt: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return findByCategoryId;
