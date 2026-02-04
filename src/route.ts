@@ -69,7 +69,11 @@ router.delete(
   new DeleteProductController().handle,
 );
 router.get("/product", new GetProductController().handle);
-router.get("/category/product", new GetProductByIdController().handle);
+router.get(
+  "/category/product",
+  IsAuthenticated,
+  new GetProductByIdController().handle,
+);
 router.post("/product/add", IsAuthenticated, new AddItemController().handle);
 
 //Order
