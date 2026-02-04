@@ -30,6 +30,11 @@ class CreateCategoryService {
         data: {
           name: databaseName,
         },
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+        },
       }),
     ]);
 
