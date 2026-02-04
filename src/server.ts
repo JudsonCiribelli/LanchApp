@@ -3,6 +3,7 @@ import { router } from "./route.ts";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
 import path from "path";
+import cors from "cors";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,6 +11,14 @@ const __dirname = path.dirname(__filename);
 const server = express();
 
 const port = 3030;
+
+server.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

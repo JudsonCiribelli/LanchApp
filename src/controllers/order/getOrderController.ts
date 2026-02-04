@@ -8,7 +8,7 @@ class GetOrderController {
 
       const result = await getOrderService.execute();
 
-      return res.status(200).send({ result });
+      return res.status(200).send(result);
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).json({ error: error.message });
