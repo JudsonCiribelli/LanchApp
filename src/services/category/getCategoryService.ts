@@ -20,7 +20,16 @@ class GetCategoryService {
       throw new Error("Only admins can register categories.");
     }
 
-    const category = await prismaClient.category.findMany({});
+    const category = await prismaClient.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     return category;
   }
