@@ -6,6 +6,20 @@ class GetOrderService {
       where: {
         status: "PENDING",
       },
+      include: {
+        items: {
+          include: {
+            product: {
+              select: {
+                name: true,
+                price: true,
+                banner: true,
+                description: true,
+              },
+            },
+          },
+        },
+      },
       orderBy: {
         createdAt: "desc",
       },
