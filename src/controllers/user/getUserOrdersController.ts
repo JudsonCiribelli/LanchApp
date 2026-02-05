@@ -10,7 +10,7 @@ class GetUserOrdersController {
 
       const userOrders = await getUserOdersService.execute({ userId });
 
-      return res.status(200).send({ userOrders });
+      return res.status(200).send(userOrders);
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).json({
