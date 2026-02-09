@@ -24,6 +24,7 @@ import { UpdateOrderStatusController } from "./controllers/order/updateOrderStat
 import { GetCategoryController } from "./controllers/category/getCategoryController.ts";
 import { DeleteProductController } from "./controllers/product/deleteProductController.ts";
 import { GetOrderByIdController } from "./controllers/order/getOrderByIdController.ts";
+import { UpdateAddressController } from "./controllers/address/updateAddressController.ts";
 
 const router = Router();
 const upload = multer(uploadConfig);
@@ -47,6 +48,12 @@ router.delete(
   "/user/address",
   IsAuthenticated,
   new DeleteAdressController().handle,
+);
+
+router.put(
+  "/user/address",
+  IsAuthenticated,
+  new UpdateAddressController().handle,
 );
 
 //Category
