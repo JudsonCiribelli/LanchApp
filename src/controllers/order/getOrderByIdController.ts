@@ -10,8 +10,6 @@ class GetOrderByIdController {
 
       const order = await getOrderByIdService.execute({ orderId });
 
-      res.status(200).send(order);
-
       return res.status(200).send(order);
     } catch (error) {
       console.log(error);
