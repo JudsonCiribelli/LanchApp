@@ -25,9 +25,7 @@ class GetCategoryService {
         id: true,
         name: true,
         createdAt: true,
-      },
-      orderBy: {
-        createdAt: "desc",
+        products: true,
       },
     });
 
