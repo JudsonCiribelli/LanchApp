@@ -40,35 +40,33 @@ describe("/user/orders", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.userOrders).toHaveLength(2);
-    expect(response.body).toEqual({
-      userOrders: [
-        {
-          id: expect.any(String),
-          table: expect.any(Number),
-          draft: expect.any(Boolean),
-          name: expect.any(String),
-          createdAt: expect.any(String),
-          updatedAt: expect.any(String),
-          status: expect.any(String),
-          type: expect.any(String),
-          addressId: null,
-          userId: expect.any(String),
-        },
-        {
-          id: expect.any(String),
-          table: expect.any(Number),
-          draft: expect.any(Boolean),
-          name: expect.any(String),
-          createdAt: expect.any(String),
-          updatedAt: expect.any(String),
-          status: expect.any(String),
-          type: expect.any(String),
-          addressId: null,
-          userId: expect.any(String),
-        },
-      ],
-    });
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual([
+      {
+        id: expect.any(String),
+        table: expect.any(Number),
+        draft: expect.any(Boolean),
+        name: expect.any(String),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        status: expect.any(String),
+        type: expect.any(String),
+        addressId: null,
+        userId: expect.any(String),
+      },
+      {
+        id: expect.any(String),
+        table: expect.any(Number),
+        draft: expect.any(Boolean),
+        name: expect.any(String),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        status: expect.any(String),
+        type: expect.any(String),
+        addressId: null,
+        userId: expect.any(String),
+      },
+    ]);
   });
 
   it("should return an empty list if user has no orders", async () => {
@@ -80,8 +78,7 @@ describe("/user/orders", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("userOrders");
-    expect(response.body.userOrders).toEqual([]);
+    expect(response.body).toEqual([]);
   });
 
   it("should return 401 if no token is provided", async () => {

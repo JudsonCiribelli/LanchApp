@@ -53,7 +53,7 @@ describe("GET/orders/status", () => {
 
     expect(response.status).toBe(200);
 
-    const list = response.body.result as Array<{ name: string }>;
+    const list = response.body as Array<{ name: string }>;
 
     expect(list).toHaveLength(2);
 
@@ -93,7 +93,15 @@ describe("GET/orders/status", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.result).toEqual([]);
+    expect(response.body).toEqual([]);
+  });
+
+  it("should return 401 if token is invalid", async () => {
+    const response = await supertest(server).get("/orders/status");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toEqual({ message: "Auth token is required" });
   });
 
   it("should return 401 if not authenticated", async () => {
