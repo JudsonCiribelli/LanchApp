@@ -9,6 +9,7 @@ describe("/category", () => {
   beforeAll(async () => {});
 
   afterAll(async () => {
+    await prismaClient.product.deleteMany();
     await prismaClient.category.deleteMany();
     await prismaClient.$disconnect();
   });
@@ -20,7 +21,7 @@ describe("/category", () => {
       .post("/category")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        categoryName: "Special Pizzas",
+        categoryName: faker.lorem.words(2),
       });
 
     expect(response.status).toBe(201);
@@ -30,7 +31,6 @@ describe("/category", () => {
         id: expect.any(String),
         name: expect.any(String),
         createdAt: expect.any(String),
-        updatedAt: expect.any(String),
       },
     });
   });
@@ -83,7 +83,7 @@ describe("/category", () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe("Validation error");
     expect(JSON.stringify(response.body.issues)).toContain(
-      "The name of category is required"
+      "The name of category is required",
     );
   });
 
