@@ -33,22 +33,19 @@ describe("/user/address", () => {
         zipCode: validZipCode,
       });
 
-    expect(response.body).toHaveProperty("address");
-    expect(response.body.address).toHaveProperty("id");
-    expect(response.body.address.zipCode).toBe("12345678");
+    expect(response.body).toHaveProperty("id");
+    expect(response.body.zipCode).toBe("12345678");
     expect(response.status).toBe(201);
     expect(response.body).toEqual({
-      address: {
-        id: expect.any(String),
-        street: expect.any(String),
-        number: expect.any(String),
-        complement: expect.any(String),
-        neighborhood: expect.any(String),
-        city: expect.any(String),
-        state: expect.any(String),
-        zipCode: expect.any(String),
-        userId: expect.any(String),
-      },
+      id: expect.any(String),
+      street: expect.any(String),
+      number: expect.any(String),
+      complement: expect.any(String),
+      neighborhood: expect.any(String),
+      city: expect.any(String),
+      state: expect.any(String),
+      zipCode: expect.any(String),
+      userId: expect.any(String),
     });
   });
 
@@ -71,7 +68,7 @@ describe("/user/address", () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe("Validation error");
     expect(JSON.stringify(response.body.issues)).toContain(
-      "ZIP CODE INVALID. It must contain 8 digits"
+      "ZIP CODE INVALID. It must contain 8 digits",
     );
   });
 
