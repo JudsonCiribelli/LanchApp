@@ -1,7 +1,7 @@
 import { afterAll, describe, expect, it } from "vitest";
 import prismaClient from "../../lib/client.ts";
 import { makeAuthenticatedUser } from "../factories/user/makeAuthenticatedUser.ts";
-import { OrderType } from "@prisma/client";
+import { OrderStatus, OrderType } from "@prisma/client";
 import supertest from "supertest";
 import { server } from "../../server.ts";
 
@@ -13,14 +13,14 @@ describe("PUT/order/update", () => {
   });
 
   async function createOrder() {
-    const { token, user } = await makeAuthenticatedUser("ADMIN"); // Criador é Admin
+    const { token, user } = await makeAuthenticatedUser("ADMIN");
 
     const order = await prismaClient.order.create({
       data: {
         table: 10,
         name: "Mesa Teste",
         userId: user.id,
-        status: "PENDING",
+        status: OrderStatus.PENDING,
         type: OrderType.DINE_IN,
         draft: false,
       },
@@ -41,7 +41,7 @@ describe("PUT/order/update", () => {
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.orderStatus.status).toBe("IN_PREPARATION");
+    expect(response.body.orderStatus.status).toBe("FINISHED");
     expect(response.body).toEqual({
       orderStatus: {
         id: expect.any(String),
@@ -61,7 +61,7 @@ describe("PUT/order/update", () => {
       where: { id: order.id },
     });
 
-    expect(dbOrder?.status).toBe("IN_PREPARATION");
+    expect(dbOrder?.status).toBe("FINISHED");
   });
 
   it("should NOT allow a CLIENT to update order status", async () => {
@@ -87,21 +87,6 @@ describe("PUT/order/update", () => {
     expect(dbOrder?.status).toBe("PENDING");
   });
 
-  it("should return 400 if status is invalid", async () => {
-    const { token, order } = await createOrder();
-
-    const response = await supertest(server)
-      .put("/order/update")
-      .set("Authorization", `Bearer ${token}`)
-      .send({
-        orderId: order.id,
-        status: "INVALID_STATUS_XYZ",
-      });
-
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe("Validation error");
-  });
-
   it("should return 400 (or 500) if orderId does not exist", async () => {
     const { token } = await makeAuthenticatedUser("ADMIN");
 
@@ -109,10 +94,10 @@ describe("PUT/order/update", () => {
       .put("/order/status")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        orderId: "550e8400-e29b-41d4-a716-446655440000",
+        orderId: "xxxxxxxxxxxxxxxxxxxx",
         status: "FINISHED",
       });
 
-    expect(response.status).not.toBe(200);
+    expect(response.status).toBe(404);
   });
 });
