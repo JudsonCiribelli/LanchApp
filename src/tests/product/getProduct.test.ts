@@ -57,6 +57,6 @@ describe("/PRODUCT", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.products).toEqual([]);
+    expect(response.body).toEqual([]);
   });
 });
