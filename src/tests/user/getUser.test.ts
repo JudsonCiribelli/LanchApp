@@ -23,12 +23,15 @@ describe("GET /user", () => {
     expect(response.status).toBe(200);
 
     expect(response.body).toEqual({
-      user: {
-        name: expect.any(String),
-        email: expect.any(String),
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String),
-      },
+      id: expect.any(String),
+      name: expect.any(String),
+      email: expect.any(String),
+      phone: expect.any(String),
+      addresses: [],
+      orders: [],
+      role: expect.any(String),
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
     });
   });
 
