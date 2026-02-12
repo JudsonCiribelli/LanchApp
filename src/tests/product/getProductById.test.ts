@@ -48,14 +48,17 @@ describe("GET/CATEGORY/PRODUCT", () => {
     expect(response.body).toEqual({
       category: [
         {
-          banner: expect.any(String),
-          categoryId: expect.any(String),
-          createdAt: expect.any(String),
-          description: expect.any(String),
           id: expect.any(String),
           name: expect.any(String),
           price: expect.any(String),
-          updatedAt: expect.any(String),
+          description: expect.any(String),
+          banner: expect.any(String),
+          categoryId: expect.any(String),
+          createdAt: expect.any(String),
+          category: {
+            id: expect.any(String),
+            name: expect.any(String),
+          },
         },
       ],
     });
