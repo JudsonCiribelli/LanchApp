@@ -48,11 +48,21 @@
         },
         "responses": {
           "200": { "description": "Login realizado com sucesso" },
-          "400": { "description": "Email ou senha incorretos" }
+          "400": { "description": "Email ou senha incorretos" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     },
     "/user": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Detalhes do Usuário Logado",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Dados do perfil retornados" },
+          "401": { "description": "Não autorizado" }
+        }
+      },
       "post": {
         "tags": ["Usuários"],
         "summary": "Criar Usuário",
@@ -72,16 +82,156 @@
           }
         },
         "responses": {
-          "201": { "description": "Usuário criado com sucesso" }
+          "201": { "description": "Usuário criado com sucesso" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/user/address": {
+      "post": {
+        "tags": ["Usuários"],
+        "summary": "Adicionar Endereço",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "street": { "type": "string", "example": "Rua da física" },
+                  "number": {
+                    "type": "string",
+                    "example": "(98)9XXXX-XXXX"
+                  },
+                  "complement": {
+                    "type": "string",
+                    "example": "Subindo a rua do posto de combustíveis"
+                  },
+                  "neighborhood": { "type": "string", "example": "Cohafuma" },
+                  "city": { "type": "string", "example": "São Luís" },
+                  "state": { "type": "string", "example": "MA" },
+                  "zipCode": { "type": "string", "example": "01234-567" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Endereço adicionado com sucesso" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       },
       "get": {
         "tags": ["Usuários"],
-        "summary": "Detalhes do Usuário Logado",
+        "summary": "Listar Endereços",
         "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserId": {
+                    "type": "string",
+                    "example": "89443444-dade-4d58-a54b-8e0a841bfd65"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": { "description": "Dados do perfil retornados" },
-          "401": { "description": "Não autorizado" }
+          "200": { "description": "Lista de endereços retornada" },
+          "400": { "description": "Erro de validação ou permissão" }
+        }
+      },
+      "delete": {
+        "tags": ["Usuários"],
+        "summary": "Remover Endereço",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserId": {
+                    "type": "string",
+                    "example": "89443444-dade-4d58-a54b-8e0a841bfd65"
+                  },
+
+                  "addressId": {
+                    "type": "string",
+                    "example": "c55c6bfc-c43c-4b03-b781-d96666789db7"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Endereço removido com sucesso" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/user/orders": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Busca pedidos do usuário logado",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserId": {
+                    "type": "string",
+                    "example": "89443444-dade-4d58-a54b-8e0a841bfd65"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Lista de pedidos retornada" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/user/profile": {
+      "put": {
+        "tags": ["Usuários"],
+        "summary": "Atualiza os dados do usuário logado",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newName": { "type": "string", "example": "João Silva" },
+                  "newEmail": {
+                    "type": "string",
+                    "example": "joao@teste.com"
+                  },
+                  "newPhone": { "type": "string", "example": "11988887777" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Dados do usuário atualizados com sucesso" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "401": { "description": "Não autorizado" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     },
@@ -108,7 +258,43 @@
         }
       }
     },
+    "/category/product": {
+      "get": {
+        "tags": ["Produtos & Categorias"],
+        "summary": "Busca produtos de uma determinada categoria",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categoryId": {
+                    "type": "string",
+                    "example": "07a270dd-fb62-4839-a489-b518a06ca4d5"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Lista de produtos retornada com sucesso!" },
+          "400": { "description": "Erro de validação ou permissão" }
+        }
+      }
+    },
     "/product": {
+      "get": {
+        "tags": ["Produtos & Categorias"],
+        "summary": "Busca todos os produtos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Lista de produtos retornada com sucesso!" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      },
       "post": {
         "tags": ["Produtos & Categorias"],
         "summary": "Criar Produto com Imagem (Admin)",
@@ -138,7 +324,33 @@
           }
         },
         "responses": {
-          "201": { "description": "Produto criado" }
+          "201": { "description": "Produto criado" },
+          "400": { "description": "Erro de validação ou permissão" }
+        }
+      },
+      "delete": {
+        "tags": ["Produtos & Categorias"],
+        "summary": "Remover Produto (Admin)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string",
+                    "example": "371fb58b-e133-4edb-8ffb-1a6d347bc904"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Produto removido" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     },
@@ -166,7 +378,19 @@
           }
         },
         "responses": {
-          "201": { "description": "Pedido aberto com sucesso" }
+          "201": { "description": "Pedido aberto com sucesso" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      },
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar Pedidos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Lista de pedidos retornada" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       },
       "delete": {
@@ -183,14 +407,40 @@
           }
         ],
         "responses": {
-          "200": { "description": "Pedido removido" }
+          "200": { "description": "Pedido removido" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "order/id": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Busca detalhes de um pedido",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderId": { "type": "string", "format": "uuid" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Dados do pedido listado com sucesso." },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     },
     "/order/add": {
       "post": {
         "tags": ["Pedidos"],
-        "summary": "Adicionar Item ao Pedido",
+        "summary": "Adicionar produto ao Pedido",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -207,14 +457,16 @@
           }
         },
         "responses": {
-          "201": { "description": "Item adicionado" }
+          "201": { "description": "Item adicionado" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     },
-    "/order/status": {
-      "put": {
-        "tags": ["Cozinha"],
-        "summary": "Atualizar Status do Pedido (Admin)",
+    "/order/items": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar itens do Pedido",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -223,26 +475,99 @@
                 "type": "object",
                 "properties": {
                   "orderId": { "type": "string", "format": "uuid" },
-                  "status": {
-                    "type": "string",
-                    "enum": [
-                      "PENDING",
-                      "IN_PREPARATION",
-                      "READY",
-                      "ON_THE_WAY",
-                      "DELIVERED",
-                      "FINISHED"
-                    ],
-                    "example": "IN_PREPARATION"
-                  }
+                  "productId": { "type": "string", "format": "uuid" }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Status atualizado" },
-          "400": { "description": "Não autorizado ou Status inválido" }
+          "200": { "description": "Items listados com sucesso." },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      },
+      "delete": {
+        "tags": ["Pedidos"],
+        "summary": "Remove items de um pedido",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderId": { "type": "string", "format": "uuid" },
+                  "productId": { "type": "string", "format": "uuid" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Item removido com sucesso." },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/order/status": {
+      "get": {
+        "tags": ["Cozinha"],
+        "summary": "Busca pedidos na cozinha com status pendente",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Pedidos listados com sucesso!" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/order/send": {
+      "put": {
+        "tags": ["Cozinha"],
+        "summary": "Enviar pedido para preparos.",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderId": { "type": "string", "format": "uuid" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Pedidos enviado com sucesso!" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
+        }
+      }
+    },
+    "/order/update": {
+      "put": {
+        "tags": ["Cozinha"],
+        "summary": "Finaliza o pedido",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderId": { "type": "string", "format": "uuid" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Pedido finalizado com sucesso!" },
+          "400": { "description": "Erro de validação ou permissão" },
+          "500": { "description": "Erro interno do servidor" }
         }
       }
     }
