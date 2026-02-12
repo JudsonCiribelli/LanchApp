@@ -23,10 +23,13 @@ describe("/session", () => {
       });
 
     expect(response.status).toBe(200);
+
     expect(response.body).toEqual({
-      login: {
-        token: expect.any(String),
-      },
+      name: expect.any(String),
+      email: expect.any(String),
+      phone: expect.any(String),
+      token: expect.any(String),
+      role: expect.any(String),
     });
   });
 
@@ -42,7 +45,7 @@ describe("/session", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         error: expect.stringMatching(/password|credentials/i),
-      })
+      }),
     );
   });
 
