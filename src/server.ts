@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import { httpLogger } from "./middleware/httpLogger.ts";
+import { errorHandler } from "./middleware/errorHandler.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +47,8 @@ server.use((err: Error, req: Request, res: Response, next: any) => {
     message: "Internal server error.",
   });
 });
+
+server.use(errorHandler);
 
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
