@@ -1,4 +1,5 @@
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface CreateAddressesProps {
   userId: string;
@@ -35,6 +36,7 @@ class CreateAddressesService {
       },
     });
 
+    await cache.invalidate("user_address");
     return address;
   }
 }
