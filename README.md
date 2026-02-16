@@ -5,6 +5,8 @@
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-729B1B?style=for-the-badge&logo=vitest&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-3068B7?style=for-the-badge&logo=zod&logoColor=white)
 
@@ -17,6 +19,32 @@
 Este projeto simula um cenário real de **Food Delivery**. A aplicação permite que clientes façam pedidos (Delivery, Retirada ou Mesa), acompanhem o status em tempo real e gerenciem seus endereços. Para o estabelecimento, o sistema oferece controle total do cardápio e um fluxo de pedidos otimizado para a cozinha.
 
 O foco principal foi aplicar **Clean Code**, arquitetura em camadas, testes de integração e validações rigorosas de segurança.
+
+## 🚀 Diferenciais de Engenharia (Production Ready)
+
+Para elevar o nível de escalabilidade e confiabilidade, foram implementados os seguintes padrões:
+
+### ⚡ Performance com Redis (Cache-Aside Pattern)
+
+Otimização de rotas críticas de consulta para reduzir a carga no banco de dados e o tempo de resposta.
+
+- **Latência Reduzida:** Respostas de categorias e produtos caíram de ~180ms para **<10ms**.
+- **Estratégia de Invalidação:** Implementação de limpeza seletiva de cache (`Purge`) em eventos de mutação (Create, Update, Delete) para garantir a consistência dos dados (Data Integrity).
+
+### 🛡️ Resiliência e Segurança de API
+
+- **Rate Limiting:** Camada de proteção contra ataques de força bruta e DoS, limitando requisições abusivas por IP.
+- **Global Error Handler:** Middleware centralizado para tratamento de exceções, evitando que falhas exponham detalhes da infraestrutura e garantindo respostas padronizadas.
+- **Proteção contra IDOR:** Validações de propriedade de recursos, impedindo que usuários manipulem dados de terceiros.
+
+### 📊 Observabilidade e Logs Estruturados
+
+- Implementação do **Winston Logger** para monitoramento de saúde da aplicação.
+- Logs categorizados por níveis (`info`, `warn`, `error`, `http`) com persistência em arquivos rotativos para auditoria e depuração pós-erro.
+
+### 🐳 Infraestrutura como Código (Docker)
+
+- Ambiente 100% conteinerizado com **Docker Compose**, orquestrando PostgreSQL e Redis para garantir paridade total entre os ambientes de desenvolvimento, teste e produção.
 
 ---
 
@@ -58,10 +86,40 @@ O foco principal foi aplicar **Clean Code**, arquitetura em camadas, testes de i
 - **[Vitest](https://vitest.dev/)** - Testes de Integração e E2E.
 - **[Zod](https://zod.dev/)** - Validação de Schemas.
 - **[Swagger UI](https://swagger.io/)** - Documentação interativa.
+- **[Winston](https://www.npmjs.com/package/winston)** para logging profissional.
+- **[Express-rate-limit](https://www.npmjs.com/package/express-rate-limit)** para segurança de tráfego.
 - **[Multer](https://github.com/expressjs/multer)** - Upload de arquivos.
 
 ---
 
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+- Docker e Docker Compose instalados.
+
+### Passo a passo
+
+1. **Clone o repositório:**
+   ```bash
+   git clone (https://github.com/JudsonCiribelli/LanchApp)
+   ```
+2. **Suba a infraestrutura (Postgres & Redis)**
+   ```bash
+   docker compose up -d
+   ```
+3. **Configure as variáveis de ambiente**
+
+````Crie um arquivo .env baseado no .env.example.
+4. **Instale as dependências e rode o projeto**
+```bash
+npm install
+npx prisma migrate dev
+npm run dev
+````
+
 ## 📚 Documentação da API (Swagger)
 
-A API possui documentação interativa completa. Após rodar o projeto, acesse:
+- [X]A API possui documentação interativa completa. Após rodar o projeto, acesse: (http://localhost:3333/api-docs)
+
+- Desenvolvido por Judson Rodrigues Ciribelli Filho 🚀
