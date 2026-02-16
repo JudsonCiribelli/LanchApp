@@ -1,5 +1,6 @@
 import type { OrderType } from "@prisma/client";
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface createOrderProps {
   table: number;
@@ -33,7 +34,7 @@ class CreateOrderService {
 
         if (!user || user.addresses.length === 0) {
           throw new Error(
-            "Delivery is not possible without a registered address"
+            "Delivery is not possible without a registered address",
           );
         }
 
@@ -62,6 +63,7 @@ class CreateOrderService {
       },
     });
 
+    await cache.invalidate("orders_pending");
     return order;
   }
 }
