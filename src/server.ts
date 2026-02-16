@@ -5,6 +5,7 @@ import swaggerDocument from "./swagger.json" with { type: "json" };
 import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
+import { httpLogger } from "./middleware/httpLogger.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,15 +20,19 @@ server.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-
+server.use(httpLogger);
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+server.use(httpLogger);
 server.use(express.json());
 
+server.use(httpLogger);
 server.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
+server.use(httpLogger);
 server.use(router);
 
+server.use(httpLogger);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 server.use((err: Error, req: Request, res: Response, next: any) => {
   if (err instanceof Error) {

@@ -1,0 +1,11 @@
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:04:50"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:04:55"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:05:29"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:05:30"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:05:37"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: all_categories. Buscando no banco de dados...","timestamp":"2026-02-16 12:06:15"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 12:06:31"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:36"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:37"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:43"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:49"}
