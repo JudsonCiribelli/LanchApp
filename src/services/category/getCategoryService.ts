@@ -1,4 +1,5 @@
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface GetCategoryProps {
   userId: string;
@@ -20,16 +21,28 @@ class GetCategoryService {
       throw new Error("Only admins can register categories.");
     }
 
-    const category = await prismaClient.category.findMany({
-      select: {
-        id: true,
-        name: true,
-        createdAt: true,
-        products: true,
-      },
+    const categories = await cache.getOrSet("all_categories", async () => {
+      return await prismaClient.category.findMany({
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+          updatedAt: true,
+          products: true,
+        },
+      });
     });
+    console.log(categories);
+    // const category = await prismaClient.category.findMany({
+    //   select: {
+    //     id: true,
+    //     name: true,
+    //     createdAt: true,
+    //     products: true,
+    //   },
+    // });
 
-    return category;
+    return categories;
   }
 }
 

@@ -1,4 +1,5 @@
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface CreateCategoryProps {
   userId: string;
@@ -46,6 +47,7 @@ class CreateCategoryService {
       throw new Error("This category is already exist");
     }
 
+    await cache.invalidate("all_categories");
     return category;
   }
 }
