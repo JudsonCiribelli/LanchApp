@@ -7,10 +7,12 @@ import cors from "cors";
 import { fileURLToPath } from "url";
 import { httpLogger } from "./middleware/httpLogger.ts";
 import { errorHandler } from "./middleware/errorHandler.ts";
+import { limiter } from "./middleware/rateLimiter.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const server = express();
+server.use(limiter);
 
 const port = 3030;
 
