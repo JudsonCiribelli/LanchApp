@@ -120,6 +120,6 @@ npm run dev
 
 ## 📚 Documentação da API (Swagger)
 
-- [x] A API possui documentação interativa completa. Após rodar o projeto, acesse: (http://localhost:3/api-docs)
+- [x] A API possui documentação interativa completa. Após rodar o projeto, acesse: (http://localhost:3030/api-docs)
 
 - Desenvolvido por Judson Rodrigues Ciribelli Filho 🚀
