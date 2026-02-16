@@ -11,3 +11,71 @@
 {"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:49"}
 {"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:54:56"}
 {"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 12:58:18"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 12:59:47"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:02:31"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:02:32"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: all_products. Buscando no banco de dados...","timestamp":"2026-02-16 14:02:33"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:02:58"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 14:03:01"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:04:16"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:04:53"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 14:04:57"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: orders_pending. Buscando no banco de dados...","timestamp":"2026-02-16 14:05:27"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: all_categories. Buscando no banco de dados...","timestamp":"2026-02-16 14:05:28"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 14:05:28"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 14:05:30"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 14:05:30"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 14:05:31"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 14:05:31"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 14:05:33"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 14:05:33"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 14:05:35"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 14:05:36"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 14:05:37"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 14:05:37"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 14:05:38"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 14:05:42"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 14:05:44"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 15:18:04"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 15:18:06"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 16:52:31"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 16:52:33"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 17:09:13"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 17:10:29"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 17:10:45"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 17:23:17"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 17:23:58"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: user. Buscando no banco de dados...","timestamp":"2026-02-16 17:28:24"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:26"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: orders_pending. Buscando no banco de dados...","timestamp":"2026-02-16 17:28:26"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: orders_pending. Buscando no banco de dados...","timestamp":"2026-02-16 17:28:26"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:32"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:28:33"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:35"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:39"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:42"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:46"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:54"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:54"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:54"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:28:54"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:28:54"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:28:54"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: all_categories. Buscando no banco de dados...","timestamp":"2026-02-16 17:28:58"}
+{"level":"warn","message":"🐢 [CACHE MISS] Chave: all_products. Buscando no banco de dados...","timestamp":"2026-02-16 17:28:58"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:29:02"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 17:29:02"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 17:29:02"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:29:04"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 17:29:04"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 17:29:04"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: user","timestamp":"2026-02-16 17:29:08"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 17:29:08"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_products","timestamp":"2026-02-16 17:29:08"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: all_categories","timestamp":"2026-02-16 17:29:11"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:29:12"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:29:12"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:29:20"}
+{"level":"info","message":"⚡ [CACHE HIT] Chave: orders_pending","timestamp":"2026-02-16 17:29:22"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 18:04:49"}
+{"level":"info","message":"Conectado ao Redis com sucesso!","timestamp":"2026-02-16 18:04:50"}
