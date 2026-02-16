@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface createUserProps {
   name: string;
@@ -46,6 +47,7 @@ class CreateUserService {
       },
     });
 
+    await cache.invalidate("user");
     return { user };
   }
 }
