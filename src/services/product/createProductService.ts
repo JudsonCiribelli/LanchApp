@@ -1,6 +1,7 @@
 import { Readable } from "node:stream";
 import cloudinary from "../../config/cloudinary.ts";
 import prismaClient from "../../lib/client.ts";
+import { cache } from "../../utils/redis.ts";
 
 interface createProductProps {
   name: string;
@@ -98,6 +99,7 @@ class CreateProductService {
       },
     });
 
+    await cache.invalidate("all_products");
     return product;
   }
 }
