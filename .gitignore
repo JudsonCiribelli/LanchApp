@@ -5,4 +5,3 @@ node_modules
 tmp
 coverage
 docker-compose.yml
-/logs/
