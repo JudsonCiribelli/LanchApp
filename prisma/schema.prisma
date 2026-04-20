@@ -19,7 +19,7 @@ model User {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
 
-  role      Role      @default(CLIENT)
+  role      Role      @default(ADMIN)
   orders    Order[]   @relation("UserOrders")
   addresses Address[]
 
